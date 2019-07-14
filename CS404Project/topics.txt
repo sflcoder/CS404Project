@@ -1,0 +1,9 @@
+1	Programming
+2	HTML
+3	PHP
+4	C++
+5	Statistics
+6	SQL
+7	CSS
+8	Javascript
+9	Python
