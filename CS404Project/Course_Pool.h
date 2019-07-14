@@ -1,7 +1,7 @@
 #pragma once
 #ifndef COURSE_POOL_H
 #define COURSE_POOL_H
-
+#include <vector>
 #include "Course.h"
 #include <string>
 #include <list>
@@ -22,15 +22,16 @@ public:
 
 	void update_course_topic(ifstream codeFile);
 
-	int get_course_num();
+	size_t get_course_num();
 
-	list<Course> get_course_pool();
+	vector<Course> get_course_pool();
 
 	// Print the class pool
 	void print();
 
 private:
-	list<Course> course_pool;
+	vector<Course> course_pool;
+	//list<Course> course_pool;
 
 };
 

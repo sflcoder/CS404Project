@@ -5,7 +5,7 @@
 #include "Professor.h"
 #include <iostream>
 #include <fstream>
-#include <list>
+#include <vector>
 using namespace std;
 
 class Professor_List
@@ -20,7 +20,7 @@ public:
 	// Destructor
 	~Professor_List();
 
-	list<Professor> get_professor_list();
+	vector<Professor> get_professor_list();
 
 	void update_professor_expertise(ifstream courseTopicFile);
 
@@ -31,7 +31,7 @@ public:
 	void print();
 
 private:
-	list<Professor> professor_list;
+	vector<Professor> professor_list;
 };
 
 

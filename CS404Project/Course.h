@@ -13,6 +13,7 @@ public:
 
 	// Getters and Setters
 	int getID();
+	string get_name();
 	map<int, double> get_topic_percent();
 
 	void update_topic_percent(int topic_ID, double topic_percent);

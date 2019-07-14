@@ -30,21 +30,21 @@ int main()
 	test_course.update_topic_percent(2, 0.3);
 	test_course.print();
 
-	// Test Professor
+	//Test Professor
 	cout << "Test Professor class\n";
 	Professor test_professor(1, "John Smith");
 	test_professor.update_proferror_expertise(1, 2);
 	test_professor.update_proferror_expertise(2, 3);
 	test_professor.print();
 
-	// Test the Class_Pool clas
+	//Test the Class_Pool clas
 	Course_Pool coursePool(ifstream("courses.txt"));
 	coursePool.print();
 	coursePool.update_course_topic(ifstream("courseTopics.txt"));
 	coursePool.print();
 
 
-	// Test the Professor_List clas
+	//Test the Professor_List clas
 	Professor_List professorList(ifstream("professors.txt"));
 	professorList.print();
 

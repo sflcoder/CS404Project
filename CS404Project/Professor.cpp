@@ -25,6 +25,11 @@ int Professor::getID()
 	return professor_ID;
 }
 
+string Professor::get_name()
+{
+	return professor_name;
+}
+
 map<int, double> Professor::get_professor_expertise()
 {
 	return professor_expertise;

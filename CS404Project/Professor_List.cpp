@@ -41,17 +41,15 @@ void Professor_List::update_professor_expertise(ifstream courseTopicFile)
 		courseTopicFile >> professorID;
 		courseTopicFile >> level;
 		cout << endl << "level" << level << endl << endl;
-	
-		list<Professor> ::iterator iter;
-		for (iter = professor_list.begin(); iter != professor_list.end(); ++iter)
-		{
-			if (iter->getID() == professorID)
-			{
-				iter->update_proferror_expertise(topicID, level);
-			}
 
-			iter->print();
-			//cout << iter->getTitle() << endl;
+
+		for (int i = 0; i < professor_list.size(); ++i)
+		{
+			if (professor_list[i].getID() == professorID)
+			{
+				professor_list[i].update_proferror_expertise(topicID, level);
+			}
+			professor_list[i].print();
 		}
 		cout << endl;
 	}
@@ -62,7 +60,7 @@ int Professor_List::get_professor_num()
 	return professor_list.size();
 }
 
-list<Professor> Professor_List::get_professor_list()
+vector<Professor> Professor_List::get_professor_list()
 {
 	return  professor_list;
 }
@@ -72,12 +70,9 @@ void Professor_List::print() {
 
 	// Print the class pool
 	cout << "The professor list" << endl;
-	list<Professor> ::iterator iter;
-	for (iter = professor_list.begin(); iter != professor_list.end(); ++iter)
+	for (int i = 0; i < professor_list.size(); i++)
 	{
-		iter->print();
-		//cout << iter->getTitle() << endl;
+		professor_list[i].print();
 	}
 	cout << endl;
-
 }

@@ -7,9 +7,12 @@
 #include "Professor_List.h"
 #include <string>
 #include <list>
+#include <vector>
 #include <map>
 #include <fstream>
 #include <iostream>
+
+using namespace std;
 
 class Match_System
 {

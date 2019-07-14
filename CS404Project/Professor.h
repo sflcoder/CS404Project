@@ -16,7 +16,7 @@ public:
 	// Getters and Setters
 
 	int getID();
-
+	string get_name();
 	map<int, double> get_professor_expertise();
 
 	void update_proferror_expertise(int topic_ID, int expertise_level);

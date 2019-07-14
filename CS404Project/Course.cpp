@@ -25,6 +25,11 @@ int Course::getID()
 	return course_ID;
 }
 
+string Course::get_name()
+{
+	return course_name;
+}
+
 map<int, double>  Course::get_topic_percent()
 {
 	return topic_percent;
@@ -51,7 +56,7 @@ void Course::print()
 	cout << this->course_ID << '\t' << this->course_name << endl;
 	map<int, double>::iterator itr;
 	for (itr = topic_percent.begin(); itr != topic_percent.end(); ++itr) {
-		cout  << itr->first << '\t' << itr->second << '\n';
+		cout << itr->first << '\t' << itr->second << '\n';
 	}
 	cout << endl;
 }
