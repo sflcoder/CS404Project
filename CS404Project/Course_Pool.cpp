@@ -1,13 +1,16 @@
 #include "Course_Pool.h"
 #include <iostream>
 #include <fstream>
+
 using namespace std;
 
+// Construct an empty Class_Pool.
 Course_Pool::Course_Pool()
 {
 
 }
 
+// Construct a Class_Pool with a input file.
 Course_Pool::Course_Pool(ifstream courseFile)
 {
 
@@ -22,11 +25,24 @@ Course_Pool::Course_Pool(ifstream courseFile)
 	}
 }
 
+// Destructor
 Course_Pool::~Course_Pool()
 {
 
 }
 
+// Getters and Setters
+int Course_Pool::get_course_num()
+{
+	return course_pool.size();
+}
+
+vector<Course> Course_Pool::get_course_pool()
+{
+	return course_pool;
+}
+
+// Update the course topic
 void Course_Pool::update_course_topic(ifstream courseTopicFile)
 {
 	int courseID;
@@ -54,16 +70,7 @@ void Course_Pool::update_course_topic(ifstream courseTopicFile)
 	}
 }
 
-int Course_Pool::get_course_num()
-{
-	return course_pool.size();
-}
-
-vector<Course> Course_Pool::get_course_pool()
-{
-	return course_pool;
-}
-
+// Print the class pool
 void Course_Pool::print()
 {
 	// Print the class pool

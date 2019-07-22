@@ -23,20 +23,20 @@ public:
 	// Constructor and distructor
 	Match_System(Course_Pool coursePool, Professor_List professorList);
 	~Match_System();
-	// Getters and Setters
-	//void set_preference();
-	vector< vector<int> > calculate_preference();
-	void Gale_Shapley();
-	bool wPrefersM1OverM(vector< vector<int> > v, int w, int m, int m1);
 
+	// Calculate the preference matrix
+	void calculate_preference();
+
+	// Match the course wit professor
+	void match();
+
+	// Sort the index
 	template <typename T>
 	vector<size_t> sort_indexes(const vector<T>& v);
-
 
 private:
 	Course_Pool coursePool;
 	Professor_List professorList;
-	// vector< vector<int> > preference_matrix;
 	vector< vector<int> > preference_of_course;
 	vector< vector<int> > preference_of_professor;
 };

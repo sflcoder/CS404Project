@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+
 using namespace std;
 
 class Professor_List
@@ -14,25 +15,24 @@ public:
 
 	// Construct an empty Class_Pool.
 	Professor_List();
+
 	// Construct a Class_Pool with a input file.
 	Professor_List(ifstream codeFile);
 
 	// Destructor
 	~Professor_List();
 
+	// Getters and Setters
 	vector<Professor> get_professor_list();
-
-	void update_professor_expertise(ifstream courseTopicFile);
-
 	int get_professor_num();
 
+	// Update the professor expertise with a input file
+	void update_professor_expertise(ifstream courseTopicFile);
 
-	// Print the class pool
+	// Print the professor list
 	void print();
 
 private:
 	vector<Professor> professor_list;
 };
-
-
 #endif

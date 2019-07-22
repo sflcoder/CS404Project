@@ -20,20 +20,18 @@ public:
 	// Destructor
 	~Course_Pool();
 
-	void update_course_topic(ifstream codeFile);
-
+	// Getters and Setters
 	int get_course_num();
-
 	vector<Course> get_course_pool();
+
+	// Update the course topic
+	void update_course_topic(ifstream codeFile);
 
 	// Print the class pool
 	void print();
 
 private:
 	vector<Course> course_pool;
-	//list<Course> course_pool;
-
 };
-
 #endif
 

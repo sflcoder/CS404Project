@@ -35,10 +35,11 @@ map<int, double> Professor::get_professor_expertise()
 	return professor_expertise;
 }
 
-
+// Update the professor expertise
 void Professor::update_proferror_expertise(int topic_ID, int expertise_level)
 {
-	if (expertise_level > 5 || expertise_level <0 )
+	// Check the input value
+	if (expertise_level > 5 || expertise_level < 0)
 	{
 		cout << "The level of expertise is a number from 0 to 5£¬ Please check your input";
 	}
@@ -50,7 +51,8 @@ void Professor::update_proferror_expertise(int topic_ID, int expertise_level)
 			<< this->professor_ID << '\t' << this->professor_name << '\t' << topic_ID << '\t' << expertise_value << endl;
 	}
 }
-// Print the Topic
+
+// Print the Professor
 void Professor::print()
 {
 	cout << this->professor_ID << '\t' << this->professor_name << endl;

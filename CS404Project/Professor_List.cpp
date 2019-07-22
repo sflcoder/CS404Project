@@ -6,6 +6,7 @@ Professor_List::Professor_List()
 {
 
 }
+
 // Construct a Class_Pool with a input file.
 Professor_List::Professor_List(ifstream professorFile)
 {
@@ -27,8 +28,18 @@ Professor_List::~Professor_List()
 
 }
 
+// Getters and Setters
+int Professor_List::get_professor_num()
+{
+	return professor_list.size();
+}
 
+vector<Professor> Professor_List::get_professor_list()
+{
+	return  professor_list;
+}
 
+// Update the professor expertise with a input file
 void Professor_List::update_professor_expertise(ifstream courseTopicFile)
 {
 	int topicID;
@@ -55,20 +66,9 @@ void Professor_List::update_professor_expertise(ifstream courseTopicFile)
 	}
 }
 
-int Professor_List::get_professor_num()
+// Print the professor list
+void Professor_List::print()
 {
-	return professor_list.size();
-}
-
-vector<Professor> Professor_List::get_professor_list()
-{
-	return  professor_list;
-}
-
-// Print the class pool
-void Professor_List::print() {
-
-	// Print the class pool
 	cout << "The professor list" << endl;
 	for (int i = 0; i < professor_list.size(); i++)
 	{

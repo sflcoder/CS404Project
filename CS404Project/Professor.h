@@ -1,9 +1,9 @@
 #pragma once
 #ifndef PROFESSOR_H
 #define PROFESSOR_H
-
 #include <map>
 #include <string>
+
 using namespace std;
 
 class Professor
@@ -14,15 +14,15 @@ public:
 	~Professor();
 
 	// Getters and Setters
-
 	int getID();
 	string get_name();
 	map<int, double> get_professor_expertise();
 
+	// Update the professor expertise
 	void update_proferror_expertise(int topic_ID, int expertise_level);
-	// Print the Topic
-	void print();
 
+	// Print the Professor
+	void print();
 
 private:
 	int professor_ID;
@@ -31,6 +31,5 @@ private:
 	int class_num;
 	bool can_accept;
 };
-
 #endif
 

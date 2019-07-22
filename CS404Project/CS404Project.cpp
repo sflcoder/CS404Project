@@ -55,18 +55,9 @@ int main()
 
 
 	Match_System match_system(coursePool, professorList);
-	vector< vector<int> > preference_matrix = match_system.calculate_preference();
+	 match_system.calculate_preference();
 
-
-	// Print the result in the main function
-	cout << endl << endl;
-	for (int i = 0; i < preference_matrix.size(); i++) {
-		for (int j = 0; j < preference_matrix[i].size(); j++)
-			cout << preference_matrix[i][j] << " \t";
-		cout << endl;
-	}
-
-	match_system.Gale_Shapley();
+	match_system.match();
 
 }
 
