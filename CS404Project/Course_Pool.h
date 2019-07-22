@@ -22,7 +22,7 @@ public:
 
 	void update_course_topic(ifstream codeFile);
 
-	size_t get_course_num();
+	int get_course_num();
 
 	vector<Course> get_course_pool();
 

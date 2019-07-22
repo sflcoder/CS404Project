@@ -54,7 +54,7 @@ void Course_Pool::update_course_topic(ifstream courseTopicFile)
 	}
 }
 
-size_t Course_Pool::get_course_num()
+int Course_Pool::get_course_num()
 {
 	return course_pool.size();
 }

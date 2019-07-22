@@ -11,20 +11,28 @@
 #include <map>
 #include <fstream>
 #include <iostream>
+#include <algorithm>
+#include <numeric>
 
 using namespace std;
 
 class Match_System
 {
 public:
+
+	// Constructor and distructor
 	Match_System(Course_Pool coursePool, Professor_List professorList);
+	~Match_System();
+	// Getters and Setters
 
 	void calculate_prefer();
+	bool wPrefersM1OverM(vector< vector<int> > v, int w, int m, int m1);
+
+	template <typename T>
+	vector<size_t> sort_indexes(const vector<T>& v);
 private:
 	Course_Pool coursePool;
 	Professor_List professorList;
-
 };
-
 #endif
 
