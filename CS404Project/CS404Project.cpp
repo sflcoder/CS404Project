@@ -59,6 +59,8 @@ int main()
 
 	match_system.match();
 
+	match_system.match_sorted();
+
 }
 
 

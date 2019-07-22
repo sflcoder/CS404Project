@@ -9,7 +9,6 @@ class Course
 {
 public:
 	// Constructor and dis
-	Course();
 	Course(int course_ID, string course_name);
 	~Course();
 

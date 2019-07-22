@@ -29,6 +29,7 @@ public:
 
 	// Match the course wit professor
 	void match();
+	void match_sorted();
 
 	// Sort the index
 	template <typename T>
@@ -38,7 +39,9 @@ private:
 	Course_Pool coursePool;
 	Professor_List professorList;
 	vector< vector<int> > preference_of_course;
+	vector< vector<int> > preference_of_course_sorted;
 	vector< vector<int> > preference_of_professor;
+	vector<double> sum;
 };
 #endif
 

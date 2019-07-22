@@ -6,11 +6,6 @@
 using namespace std;
 
 // Constructor
-Course::Course()
-{
-
-}
-
 Course::Course(int course_ID, string course_name)
 {
 	this->course_ID = course_ID;

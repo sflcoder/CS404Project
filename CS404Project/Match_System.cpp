@@ -18,7 +18,9 @@ Match_System::Match_System(Course_Pool coursePool, Professor_List professorList)
 	int rows = coursePool.get_course_num();
 	int value = 0;
 	preference_of_course.resize(rows, vector<int>(rows, value));
+	preference_of_course_sorted.resize(0, vector<int>(0, value));
 	preference_of_professor.resize(rows, vector<int>(rows, value));
+	sum.resize(rows, 0);
 }
 
 Match_System::~Match_System()
@@ -136,7 +138,6 @@ void Match_System::calculate_preference()
 			preference_of_course[i][j] = index;
 			j++;
 		}
-		cout << endl;
 	}
 
 	//Print the preference of professor
@@ -153,6 +154,63 @@ void Match_System::calculate_preference()
 	for (int i = 0; i < preference_of_course.size(); i++) {
 		for (int j = 0; j < preference_of_course[i].size(); j++)
 			cout << preference_of_course[i][j] << " \t";
+		cout << endl;
+	}
+	cout << endl;
+
+	// Sort the course according to the sum of match score
+	cout << "test the sum vector" << endl;
+	for (int i = 0; i < sum.size(); i++)
+	{
+		cout << sum[i] << " \t";
+	}
+	cout << endl;
+
+	for (int i = 0; i < sum.size(); i++)
+	{
+		for (int j = 0; j < sum.size(); j++)
+		{
+			sum[i] += match_score_sym[i][j];
+
+		}
+	}
+
+	cout << "test the sum vector" << endl;
+	for (int i = 0; i < sum.size(); i++)
+	{
+		cout << sum[i] << " \t";
+		cout << endl;
+	}
+
+	// Sort the index
+	for (int i = 0; i < sum.size(); ++i)
+	{
+		int j = 0;
+		for (auto index : sort_indexes(sum))
+		{
+			sum[j] = index;
+			j++;
+		}
+	}
+
+	cout << "test the sum vector" << endl;
+	for (int i = 0; i < sum.size(); i++)
+	{
+		cout << sum[i] << " \t";
+		cout << endl;
+	}
+
+	for (int i = (preference_of_course.size() - 1); i >= 0; i--)
+	{
+		int n = sum[i];
+		preference_of_course_sorted.push_back(preference_of_course[n]);
+	}
+
+	// Print the sorted preference of course
+	cout << "preference of course" << endl;
+	for (int i = 0; i < preference_of_course_sorted.size(); i++) {
+		for (int j = 0; j < preference_of_course_sorted[i].size(); j++)
+			cout << preference_of_course_sorted[i][j] << " \t";
 		cout << endl;
 	}
 	cout << endl;
@@ -244,6 +302,65 @@ void Match_System::match()
 	cout << "Matching  for course" << endl;
 	for (int i = 0; i < n_of_matches; i++) {
 		cout << "course:" << i << "-> professor:" << match_for_course[i] << endl;
+	}
+	std::cout << endl;
+}
+
+// Mtch the course with professor
+void Match_System::match_sorted()
+{
+	int course_index, professor_index;
+	int index = 0;
+	int n_of_matches = coursePool.get_course_num();
+	vector <int> match_for_course;
+	vector <int> match_for_professor;
+
+	// initinalize the value to -1 indicate the course and professor are unmatched. 
+	for (int i = 0; i < n_of_matches; i++)
+	{
+		match_for_course.push_back(-1);
+		match_for_professor.push_back(-1);
+	}
+
+	// Gale-Shapley Algorithm
+	//Find the unmatched course 
+	while ((course_index = first_No_Matches(match_for_course)) >= 0)
+	{
+		index = 0;
+		//match the professor in the preference list of course  
+		while (index < n_of_matches) {
+			//find the nth professor 
+			professor_index = preference_of_course_sorted[course_index][index];
+			//match with the professor if the professor has not been assigned a course
+			if (match_for_professor[professor_index] == -1)
+			{
+				match_for_course[course_index] = professor_index;
+				match_for_professor[professor_index] = course_index;
+				break;
+			}
+			// If the professor already has been assigned a course
+			// Check if professor prefer new course over current course
+			else if (rank_check(preference_of_professor[professor_index], course_index, match_for_professor[professor_index]))
+			{
+				// Set the old curse as unmatched 
+				match_for_course[match_for_professor[professor_index]] = -1;
+				// Match the professor with the new course 
+				match_for_professor[professor_index] = course_index;
+				match_for_course[course_index] = professor_index;
+				break;
+			}
+			else {
+				// if the professor prefer the current course over the new course
+				// do nothing and the course continue to check the next professor.
+				index++;
+			}
+		}
+	}
+	cout << endl << "Number of matches: " << n_of_matches << endl;
+	cout << "Matching  for course" << endl;
+	for (int i = 0; i < n_of_matches; i++) {
+		int n = (n_of_matches - 1 - i);
+		cout << "course:" << sum[n] << "-> professor:" << match_for_course[i] << endl;
 	}
 	std::cout << endl;
 }
