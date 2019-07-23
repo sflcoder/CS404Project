@@ -12,12 +12,8 @@ public:
 	Topic(int topic_ID, string topic_name);
 	~Topic();
 
-
-	// Getters and Setters
-
-		// Print the Topic
+	// Print the Topic
 	void print();
-
 
 private:
 	int topic_ID;

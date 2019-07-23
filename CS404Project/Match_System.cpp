@@ -17,6 +17,8 @@ Match_System::Match_System(Course_Pool coursePool, Professor_List professorList)
 	this->professorList = professorList;
 	int rows = coursePool.get_course_num();
 	int value = 0;
+	double val = 0;
+	match_score.resize(rows, vector<double>(rows, val));
 	preference_of_course.resize(rows, vector<int>(rows, value));
 	preference_of_course_sorted.resize(0, vector<int>(0, value));
 	preference_of_professor.resize(rows, vector<int>(rows, value));
@@ -35,7 +37,6 @@ void Match_System::calculate_preference()
 	double val = 0;
 
 	// Create a matrix to store the match score and initialize the value to 0
-	vector< vector<double> > match_score(rows, vector<double>(cols, val));
 	vector< vector<double> > match_score_sym(rows, vector<double>(cols, val));
 
 	// Get the peofessor list and course pool.
@@ -47,13 +48,13 @@ void Match_System::calculate_preference()
 	// Calculate the match score and store it to the matrix.
 	for (int i = 0; i < professor_num; ++i)
 	{
-		cout << "\nThe Rows of the array:" << rows;
+		//cout << "\nThe Rows of the array:" << rows;
 		map<int, double>::iterator itr_p;
 		map<int, double> expertise_map = pro[i].get_professor_expertise();
 		for (itr_p = expertise_map.begin(); itr_p != expertise_map.end(); ++itr_p)
 		{
-			cout << endl << pro[i].getID() << endl
-				<< itr_p->first << '\t' << itr_p->second << '\n' << endl;
+			//cout << endl << pro[i].getID() << endl
+				//<< itr_p->first << '\t' << itr_p->second << '\n' << endl;
 			int topic_ID_pro = itr_p->first;
 			double expertise = itr_p->second;
 
@@ -70,8 +71,6 @@ void Match_System::calculate_preference()
 					if (topic_ID_pro == topic_ID_course)
 					{
 						match_score[i][j] += (expertise * topic_percent);
-						cout << "Update the preference value of Row: " << i << "  Column: " << j << "  expertise: " << expertise
-							<< "  topic_percent: " << topic_percent << "\t" << expertise * topic_percent << "\t" << match_score[i][j] << endl;
 					}
 				}
 			}
@@ -85,7 +84,44 @@ void Match_System::calculate_preference()
 			match_score_sym[i][j] = match_score[j][i];
 	}
 
-	cout << endl << "Print the match score table" << endl << endl;
+	// Sort the index
+	for (int i = 0; i < rows; ++i)
+	{
+		int j = 0;
+		for (auto index : sort_indexes(match_score[i]))
+		{
+			preference_of_professor[i][j] = index;
+			j++;
+		}
+	}
+
+	// Sort the index
+	for (int i = 0; i < rows; ++i)
+	{
+		int j = 0;
+		for (auto index : sort_indexes(match_score_sym[i]))
+		{
+			preference_of_course[i][j] = index;
+			j++;
+		}
+	}
+
+	for (int i = 0; i < sum.size(); i++)
+	{
+		for (int j = 0; j < sum.size(); j++)
+		{
+			sum[i] += match_score_sym[i][j];
+
+		}
+	}
+
+	vector<double> total;
+	for (int i = 0; i < sum.size(); i++)
+	{
+		total.push_back(sum[i]);
+	}
+
+	cout << endl << "\t" << "The match score table" << endl;
 	cout << "\t";
 	for (int i = 0; i < pro.size(); ++i)
 	{
@@ -101,86 +137,43 @@ void Match_System::calculate_preference()
 		cout << endl;
 	}
 
-	cout << endl << "Print the symmetry match score table" << endl << endl;
+
+	//Print the preference of professor
+	cout << endl << endl;
+	cout << "ID" << "\t" << "preference of professor" << endl;
+	for (int i = 0; i < preference_of_professor.size(); i++) {
+		cout << pro[i].getID() << "\t";
+		for (int j = 0; j < preference_of_professor[i].size(); j++)
+			cout << preference_of_professor[i][j] << " \t";
+		cout << endl;
+	}
+	cout << endl << endl;
+
+	cout << "\t" << "The match score table" << endl;
 	cout << "\t";
 	for (int i = 0; i < cour.size(); ++i)
 	{
 		cout << pro[i].getID() << "\t";
 	}
-	cout << endl;
+	cout << "sum" << endl;
 
 	for (int i = 0; i < match_score_sym.size(); ++i) {
 		cout << cour[i].getID() << "\t";
 		for (int j = 0; j < match_score_sym[i].size(); j++)
 			cout << match_score_sym[i][j] << " \t";
-		cout << endl;
-	}
-
-	// Sort the index
-	for (int i = 0; i < rows; ++i)
-	{
-		int j = 0;
-		for (auto index : sort_indexes(match_score[i]))
-		{
-			preference_of_professor[i][j] = index;
-			j++;
-		}
-		cout << endl;
-	}
-	cout << endl << endl;
-
-	// Sort the index
-	for (int i = 0; i < rows; ++i)
-	{
-		int j = 0;
-		for (auto index : sort_indexes(match_score_sym[i]))
-		{
-			preference_of_course[i][j] = index;
-			j++;
-		}
-	}
-
-	//Print the preference of professor
-	cout << endl << endl;
-	cout << "preference of professor" << endl;
-	for (int i = 0; i < preference_of_professor.size(); i++) {
-		for (int j = 0; j < preference_of_professor[i].size(); j++)
-			cout << preference_of_professor[i][j] << " \t";
-		cout << endl;
+		cout << sum[i] << endl;
 	}
 
 	// Print the preference of course
-	cout << "preference of course" << endl;
+	cout << endl<< endl << "ID" << "\t" << "preference of course" << endl;
 	for (int i = 0; i < preference_of_course.size(); i++) {
+		cout << cour[i].getID() << "\t";
 		for (int j = 0; j < preference_of_course[i].size(); j++)
 			cout << preference_of_course[i][j] << " \t";
 		cout << endl;
 	}
 	cout << endl;
 
-	// Sort the course according to the sum of match score
-	cout << "test the sum vector" << endl;
-	for (int i = 0; i < sum.size(); i++)
-	{
-		cout << sum[i] << " \t";
-	}
-	cout << endl;
-
-	for (int i = 0; i < sum.size(); i++)
-	{
-		for (int j = 0; j < sum.size(); j++)
-		{
-			sum[i] += match_score_sym[i][j];
-
-		}
-	}
-
-	cout << "test the sum vector" << endl;
-	for (int i = 0; i < sum.size(); i++)
-	{
-		cout << sum[i] << " \t";
-		cout << endl;
-	}
 
 	// Sort the index
 	for (int i = 0; i < sum.size(); ++i)
@@ -193,22 +186,37 @@ void Match_System::calculate_preference()
 		}
 	}
 
-	cout << "test the sum vector" << endl;
-	for (int i = 0; i < sum.size(); i++)
-	{
-		cout << sum[i] << " \t";
-		cout << endl;
-	}
-
 	for (int i = (preference_of_course.size() - 1); i >= 0; i--)
 	{
 		int n = sum[i];
 		preference_of_course_sorted.push_back(preference_of_course[n]);
 	}
 
+	cout << endl << endl << "Sort the table according to sum of match score" << endl << endl;
+	cout << "\t" << "The match score table" << endl;
+	cout << "\t";
+	for (int i = 0; i < cour.size(); ++i)
+	{
+		cout << pro[i].getID() << "\t";
+	}
+	cout << "sum" << endl;
+
+	
+	for (int i = 0; i < match_score_sym.size(); ++i) {
+		int m = preference_of_course_sorted.size() - 1 - i;
+		int n = sum[m];
+		cout << cour[n].getID() << "\t";
+		for (int j = 0; j < match_score_sym[i].size(); j++)
+			cout << match_score_sym[i][j] << " \t";
+		cout << total[n] << endl;
+	}
+
 	// Print the sorted preference of course
-	cout << "preference of course" << endl;
+	cout << endl<< endl << "ID" << "\t" << "preference of course" << endl;
 	for (int i = 0; i < preference_of_course_sorted.size(); i++) {
+		int m = preference_of_course_sorted.size() - 1 - i;
+		int n = sum[m];
+		cout << cour[n].getID() << "\t";
 		for (int j = 0; j < preference_of_course_sorted[i].size(); j++)
 			cout << preference_of_course_sorted[i][j] << " \t";
 		cout << endl;
@@ -298,12 +306,16 @@ void Match_System::match()
 			}
 		}
 	}
-	cout << endl << "Number of matches: " << n_of_matches << endl;
-	cout << "Matching  for course" << endl;
+
+	vector<Professor> pro = professorList.get_professor_list();
+	vector<Course> cour = coursePool.get_course_pool();
+	cout << endl << "The allocation of professors and courses: " << endl << endl;
+	cout << "match score" << "\t" << "professor:" << "\t" << "\t" << "course:" << endl;
 	for (int i = 0; i < n_of_matches; i++) {
-		cout << "course:" << i << "-> professor:" << match_for_course[i] << endl;
+		int j = match_for_course[i];
+		cout << match_score[j][i] << "\t" << pro[j].get_name() << "\t" << cour[i].get_name() << endl;
 	}
-	std::cout << endl;
+	cout << endl;
 }
 
 // Mtch the course with professor
@@ -356,13 +368,26 @@ void Match_System::match_sorted()
 			}
 		}
 	}
-	cout << endl << "Number of matches: " << n_of_matches << endl;
-	cout << "Matching  for course" << endl;
-	for (int i = 0; i < n_of_matches; i++) {
+
+	vector<Professor> pro = professorList.get_professor_list();
+	vector<Course> cour = coursePool.get_course_pool();
+	cout << endl << "The allocation of professors and courses: " << endl;
+	cout << "(Let the course with lowest match score summary choose first) " << endl << endl;
+
+	/*for (int i = 0; i < n_of_matches; i++) {
 		int n = (n_of_matches - 1 - i);
 		cout << "course:" << sum[n] << "-> professor:" << match_for_course[i] << endl;
 	}
-	std::cout << endl;
+	cout << endl;*/
+
+	cout << "match score" << "\t" << "professor:" << "\t" << "\t" << "course:" << endl;
+	for (int i = 0; i < n_of_matches; i++) {
+		int n = (n_of_matches - 1 - i);
+		int index = sum[n];
+		int j = match_for_course[i];
+		cout << match_score[j][index] << "\t" << pro[j].get_name() << "\t" << cour[index].get_name() << endl;
+	}
+	cout << endl;
 }
 
 // sort the index

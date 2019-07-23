@@ -34,7 +34,7 @@ Course_Pool::~Course_Pool()
 // Getters and Setters
 int Course_Pool::get_course_num()
 {
-	return course_pool.size();
+	return int(course_pool.size());
 }
 
 vector<Course> Course_Pool::get_course_pool()
@@ -54,9 +54,9 @@ void Course_Pool::update_course_topic(ifstream courseTopicFile)
 		courseTopicFile >> courseID;
 		courseTopicFile >> topicID;
 		getline(courseTopicFile, topic_percent);
-		cout << endl << "stod(topic_percent)" << stod(topic_percent) << endl << endl;
+		//cout << endl << "stod(topic_percent)" << stod(topic_percent) << endl << endl;
 		percent = stod(topic_percent) / 100;
-		cout << endl << "percent" << percent << endl << endl;
+		//cout << endl << "percent" << percent << endl << endl;
 
 		for (size_t i = 0; i < course_pool.size(); i++)
 		{
@@ -64,9 +64,9 @@ void Course_Pool::update_course_topic(ifstream courseTopicFile)
 			{
 				course_pool[i].update_topic_percent(topicID, percent);
 			}
-			course_pool[i].print();
+			//course_pool[i].print();
 		}
-		cout << endl;
+		//cout << endl;
 	}
 }
 

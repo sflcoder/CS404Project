@@ -47,8 +47,8 @@ void Professor::update_proferror_expertise(int topic_ID, int expertise_level)
 	{
 		double expertise_value = expertise_level * 0.2;
 		this->professor_expertise.insert(pair<int, double>(topic_ID, expertise_value));
-		cout << "Updated the professor expertise" << endl
-			<< this->professor_ID << '\t' << this->professor_name << '\t' << topic_ID << '\t' << expertise_value << endl;
+		// cout << "Updated the professor expertise" << endl
+			// << this->professor_ID << '\t' << this->professor_name << '\t' << topic_ID << '\t' << expertise_value << endl;
 	}
 }
 

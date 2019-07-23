@@ -47,8 +47,8 @@ void Course::update_topic_percent(int topic_ID, double topic_percent)
 	else
 	{
 		this->topic_percent.insert(pair<int, double>(topic_ID, topic_percent));
-		cout << "Updated the topic percent" << endl
-			<< this->course_ID << '\t' << this->course_name << '\t' << topic_ID << '\t' << topic_percent << endl;
+		//cout << "Updated the topic percent" << endl
+			//<< this->course_ID << '\t' << this->course_name << '\t' << topic_ID << '\t' << topic_percent << endl;
 	}
 }
 
@@ -60,5 +60,4 @@ void Course::print()
 	for (itr = topic_percent.begin(); itr != topic_percent.end(); ++itr) {
 		cout << itr->first << '\t' << itr->second << '\n';
 	}
-	cout << endl;
 }

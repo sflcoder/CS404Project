@@ -15,9 +15,8 @@ Topic::~Topic()
 
 }
 
-// Getters and Setters
-
+// Print the Topic
 void Topic::print()
 {
-	cout << topic_ID << '\t' << topic_name<<endl;
+	cout << topic_ID << '\t' << topic_name << endl;
 }

@@ -40,6 +40,8 @@ vector<Professor> Professor_List::get_professor_list()
 }
 
 // Update the professor expertise with a input file
+// 
+// Let the course with lowest match score summary choose first
 void Professor_List::update_professor_expertise(ifstream courseTopicFile)
 {
 	int topicID;
@@ -51,8 +53,6 @@ void Professor_List::update_professor_expertise(ifstream courseTopicFile)
 		courseTopicFile >> topicID;
 		courseTopicFile >> professorID;
 		courseTopicFile >> level;
-		cout << endl << "level" << level << endl << endl;
-
 
 		for (int i = 0; i < professor_list.size(); ++i)
 		{
@@ -60,9 +60,7 @@ void Professor_List::update_professor_expertise(ifstream courseTopicFile)
 			{
 				professor_list[i].update_proferror_expertise(topicID, level);
 			}
-			professor_list[i].print();
 		}
-		cout << endl;
 	}
 }
 

@@ -19,7 +19,7 @@ public:
 
 	// Update the topic percent
 	void update_topic_percent(int topic_ID, double topic_percent);
-	
+
 	// Print the Topic
 	void print();
 

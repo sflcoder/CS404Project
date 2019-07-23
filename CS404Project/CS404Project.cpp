@@ -17,62 +17,26 @@ using namespace std;
 
 int main()
 {
-
-	// Test Topic class
-	cout << "Test Topic class\n";
-	Topic test_topic(1, "Programming");
-	test_topic.print();
-
-	// Test Course
-	cout << "Test Course class\n";
-	Course test_course(303, "Data Structures");
-	test_course.update_topic_percent(1, 0.2);
-	test_course.update_topic_percent(2, 0.3);
-	test_course.print();
-
-	//Test Professor
-	cout << "Test Professor class\n";
-	Professor test_professor(1, "John Smith");
-	test_professor.update_proferror_expertise(1, 2);
-	test_professor.update_proferror_expertise(2, 3);
-	test_professor.print();
-
-	//Test the Class_Pool clas
+	// Construct a Class_Pool object with a file.
 	Course_Pool coursePool(ifstream("courses.txt"));
-	coursePool.print();
+	// Update the course topic with a file.
 	coursePool.update_course_topic(ifstream("courseTopics.txt"));
-	coursePool.print();
 
-
-	//Test the Professor_List clas
+	// Construct a Class_Pool object with a file.
 	Professor_List professorList(ifstream("professors.txt"));
-	professorList.print();
-
+	// Update the professor expertise with a file
 	professorList.update_professor_expertise(ifstream("professorExpertise.txt"));
-	professorList.print();
 
-	coursePool.print();
-
-
+	// Construct a match_system object.
 	Match_System match_system(coursePool, professorList);
-	 match_system.calculate_preference();
+	// Calculate the match score table and build the preference matrix
+	match_system.calculate_preference();
 
+	// Mtch the course with professor
 	match_system.match();
 
+	// Sort the table according to sum of match score
+	// Let the course with lowest match score summary choose first
 	match_system.match_sorted();
-
 }
 
-
-
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
